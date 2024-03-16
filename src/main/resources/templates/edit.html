@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create New Page</title>
+    <title>Update Page</title>
 
     <!-- Tailwindcss CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -90,32 +90,57 @@
 <!-- Main -->
 <main class="flex-1 mt-10">
     <div class="p-4 md:p-5 space-y-4">
-        <form novalidate="" th:action="@{/todos/}" th:object="${todo}" method="post" class="max-w-sm mx-auto">
-            <!--                                <div class="mb-5">-->
-            <!--                                    <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Id</label>-->
-            <!--                                    <input type="text" id="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />-->
-            <!--                                </div>-->
+
+        <form th:action="@{/todos/edit}" th:object="${todo}" method="post" class="max-w-sm mx-auto">
+            <!-- Hidden input field to include the todo id -->
+            <input type="hidden" th:field="*{id}" />
             <div class="mb-5">
                 <label for="task" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Task</label>
-                <input type="text" id="task" th:field="${todo.task}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                <input type="text" id="task" th:field="*{task}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
             </div>
             <div class="mb-5">
                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Description</label>
-                <textarea id="description" th:field="${todo.description}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
+                <textarea id="description" th:field="*{description}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
             </div>
             <div class="mb-5">
                 <label for="isDone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Done</label>
-                <input type="checkbox" id="isDone" th:field="${todo.isDone}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-8 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                <input type="checkbox" id="isDone" th:field="*{isDone}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-8 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
             </div>
             <div class="mb-5">
                 <label for="createdAt" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Create at</label>
-                <input type="date" id="createdAt" th:field="${todo.createdAt}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                <input type="date" id="createdAt" th:field="*{createdAt}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
             </div>
             <div class="flex space-x-8">
-                <button type="submit" value="Add" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 focus:outline-none dark:focus:ring-green-500">Add</button>
-                <button data-modal-hide="default-modal" type="button" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-700 dark:hover:bg-green-600 focus:outline-none dark:focus:ring-green-500">Cancel</button>
+                <button type="submit" value="Update" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 focus:outline-none dark:focus:ring-green-500">Update</button>
+                <button type="submit" value="Update" class="text-white bg-red-700 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-700 dark:hover:bg-green-600 focus:outline-none dark:focus:ring-green-500">Cancel</button>
+                <!-- Add cancel or other buttons if needed -->
             </div>
         </form>
+
+
+        <!--        <form novalidate="" th:action="@{/todos/}" th:object="${todo}" method="post" class="max-w-sm mx-auto">-->
+<!--            <div class="mb-5">-->
+<!--                <label for="task" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Task</label>-->
+<!--                <input type="text" id="task" th:field="*{task}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />-->
+<!--            </div>-->
+<!--            <div class="mb-5">-->
+<!--                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Description</label>-->
+<!--                <textarea id="description" th:field="*{description}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>-->
+<!--            </div>-->
+<!--            <div class="mb-5">-->
+<!--                <label for="isDone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Done</label>-->
+<!--                <input type="checkbox" id="isDone" th:field="*{isDone}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-8 p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-500 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />-->
+<!--            </div>-->
+<!--            <div class="mb-5">-->
+<!--                <label for="createdAt" class="block mb-2 text-sm font-medium text-gray-900 dark:text-green-700">Create at</label>-->
+<!--                <input type="date" id="createdAt" th:field="*{createdAt}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />-->
+<!--            </div>-->
+<!--            <div class="flex space-x-8">-->
+<!--                <button type="submit" value="Add" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 focus:outline-none dark:focus:ring-green-500">Add</button>-->
+<!--                &lt;!&ndash; Add a cancel button if needed &ndash;&gt;-->
+<!--            </div>-->
+<!--        </form>-->
+
     </div>
 </main>
 

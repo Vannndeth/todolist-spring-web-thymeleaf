@@ -30,8 +30,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Todo updateById(Integer id, Todo todo) {
-        return todoRepository.updateById(id, todo);
+    public void updateById(Todo todo) {
+        todoRepository.updateById(todo);
     }
 
     @Override

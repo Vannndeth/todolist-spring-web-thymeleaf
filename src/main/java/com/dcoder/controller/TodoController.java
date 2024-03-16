@@ -18,7 +18,8 @@ public class TodoController {
     private final TodoService todoService;
     @GetMapping("/")
     public String getAll(Model model){
-        model.addAttribute("todos", todoService.getAll());
+        List<Todo> todoList = todoService.getAll();
+        model.addAttribute("todos", todoList);
         return "index";
     }
 
@@ -40,24 +41,32 @@ public class TodoController {
         return "redirect:/todos/";
     }
 
-    @GetMapping("/update")
-    public String updateById(@PathVariable("id") Integer id, Todo todo, Model model){
-        model.addAttribute("todo", todoService.updateById(id, todo));
-        return "redirect:/";
+    @GetMapping("/edit/{id}")
+    public String updateById(@PathVariable("id") Integer id, Model model){
+        Todo todo = todoService.getById(id);
+        model.addAttribute("todo", todo);
+        return "edit";
+    }
+    @PostMapping("/edit")
+    public String updateProduct(@ModelAttribute("todo") Todo todo) {
+        todoService.updateById(todo);
+        return "redirect:/todos/";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/delete/{id}")
     public String deleteById(@PathVariable("id") Integer id){
         todoService.deleteById(id);
-        return "redirect:/";
+        return "redirect:/todos/";
     }
 
     @GetMapping("/search")
     public String getByTask(@RequestParam Map<String, String> params, Model model) {
         List<Todo> todos = todoService.getByTask(params);
         model.addAttribute("todos", todos);
-        return "redirect:/";
+        return "redirect:/todos";
     }
+
+
 
 //    @GetMapping("/search")
     public String getByIsDone(@RequestParam Map<String, Boolean> params, Model model) {

@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TODO List</title>
+    <title>Home Page</title>
 
     <!-- Tailwindcss CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -147,6 +147,14 @@
                         <td th:text="${todo.description}" class="px-6 py-4 text-xl text-gray-600"></td>
                         <td th:text="${todo.isDone}" class="px-6 py-4 font-bold text-xl text-gray-600"></td>
                         <td th:text="${todo.createdAt}" class="px-6 py-4 font-bold text-xl text-gray-600"></td>
+                        <td>
+                            <a th:href="@{/todos/delete/{id}(id=${todo.id})}">
+                                <button type="button" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-700 dark:hover:bg-green-600 focus:outline-none dark:focus:ring-red-700">Delete</button>
+                            </a>
+                            <a th:href="@{edit/{id}(id=${todo.id})}">
+                                <button type="button" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-500 dark:hover:bg-green-600 focus:outline-none dark:focus:ring-green-500">Edit</button>
+                            </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

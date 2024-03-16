@@ -13,22 +13,21 @@ import java.util.stream.Collectors;
 @Repository
 public class TodoRepository {
     List<Todo> todoList = new ArrayList<>();
+    public TodoRepository (){
+        todoList.add(new Todo(1, "Java Programming", "Hall booking", true, LocalDate.now()));
+        todoList.add(new Todo(2, "JavaScript", "Fetch data from api", true, LocalDate.now()));
+        todoList.add(new Todo(3, "ReactJS", "Props and State", false, LocalDate.now()));
+        todoList.add(new Todo(4, "NextJS", "Render card from api", true, LocalDate.now()));
+        todoList.add(new Todo(5, "Spring Boot", "Build banking api", false, LocalDate.now()));
+        todoList.add(new Todo(6, "Spring Security", "Implementation jwt", true, LocalDate.now()));
+        todoList.add(new Todo(7, "Flutter", "Clone instagram", false, LocalDate.now()));
+    }
     public List<Todo> findAll(){
-        for (int i = 1; i <= 10; i++) {
-            Todo todo = new Todo();
-            todo.setId(i);
-            todo.setTask("Task " + i);
-            todo.setDescription("Description for Task " + i);
-            todo.setIsDone(false);
-            todo.setCreatedAt(LocalDate.now());
-            todoList.add(todo);
-        }
         return todoList;
     }
-
     public Todo findById(Integer id){
         return todoList.stream()
-                .filter(e -> e.equals(id))
+                .filter(e -> e.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Invalided id "+id));
     }
@@ -39,19 +38,20 @@ public class TodoRepository {
         return todo;
     }
 
-    public Todo updateById(Integer id, Todo todo){
-        todoList.stream().filter(e -> e.equals(id))
-                .findFirst()
-                .ifPresent(e -> {
+    public void updateById(Todo todo){
+        todoList.stream().filter(e -> e.getId().equals(todo.getId()))
+                .forEach(e -> {
                     e.setTask(todo.getTask());
                     e.setDescription(todo.getDescription());
                     e.setIsDone(todo.getIsDone());
                     e.setCreatedAt(todo.getCreatedAt());
                 });
-        return todo;
     }
     public void deleteById(Integer id){
-        todoList.removeIf(e -> e.equals(id));
+        todoList.stream()
+            .filter(e -> e.getId().equals(id))
+            .findFirst()
+            .ifPresent(todo -> todoList.remove(todo));
     }
 
     public List<Todo> findByTask(Map<String, String> params){
