@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -28,14 +29,15 @@ public class TodoController {
     }
 
     @GetMapping("/new")
-    public String createPage() {
-        return "/create";
+    public String createPage(Model model) {
+        model.addAttribute("todo", new Todo(null, "", "", false, LocalDate.now()));
+        return "new";
     }
 
-    @PostMapping("/new")
-    public String create(Todo todo){
+    @PostMapping("/")
+    public String create(@ModelAttribute Todo todo){
         todoService.create(todo);
-        return "redirect:/";
+        return "redirect:/todos/";
     }
 
     @GetMapping("/update")
